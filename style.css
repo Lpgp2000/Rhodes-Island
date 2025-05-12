@@ -1,44 +1,36 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
 body {
-  background-color: #f4f4f9;
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
 }
 
-#app {
-  width: 100%;
-  max-width: 500px;
-  background: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+header {
+    background-color: #0066cc;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
-h1 {
-  text-align: center;
-  color: #333;
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
-input[type="file"] {
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-button {
-  width: 100%;
-  padding: 0.5rem;
-  background-color: #007aff;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #005bb5;
-}
-
-#fileList {
-  margin-top: 1.5rem;
+.content {
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
 }
