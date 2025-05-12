@@ -46,3 +46,35 @@ document.addEventListener('DOMContentLoaded', function () {
   const message = "Your Rhodes Island is ready.";
   alert(message);
 });
+
+const form = document.getElementById('chat-form');
+const input = document.getElementById('chat-input');
+const windowEl = document.getElementById('chat-window');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const text = input.value.trim();
+  if (!text) return;
+
+  appendMessage('user', text);
+  input.value = '';
+
+  // Basic AI placeholder
+  if (text.startsWith('@PRTS')) {
+    const reply = await fakeReply(text);
+    appendMessage('ai', reply);
+  }
+});
+
+function appendMessage(sender, message) {
+  const div = document.createElement('div');
+  div.className = `chat-message ${sender === 'user' ? 'user-message' : 'ai-message'}`;
+  div.textContent = message;
+  windowEl.appendChild(div);
+  windowEl.scrollTop = windowEl.scrollHeight;
+}
+
+// Temporary mock for AI
+async function fakeReply(input) {
+  return "I hear you. I'm with you. Let's continue.";
+}
