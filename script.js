@@ -78,3 +78,49 @@ function appendMessage(sender, message) {
 async function fakeReply(input) {
   return "I hear you. I'm with you. Let's continue.";
 }
+
+// ========== Message Sending Logic ==========
+const sendBtn = document.getElementById("sendBtn");
+const messageInput = document.getElementById("messageInput");
+const messagesContainer = document.getElementById("messages");
+
+sendBtn.addEventListener("click", async () => {
+    const message = messageInput.value.trim();
+    if (message === "") return;
+
+    displayMessage("You", message);
+    messageInput.value = "";
+
+    // Check if message is meant for Priestess
+    if (message.startsWith("@PRTS")) {
+        const prompt = message.replace("@PRTS", "").trim();
+        const reply = await talkToPriestess(prompt);
+        displayMessage("PRTS", reply);
+    } else {
+        // Optional: Add default echo or store in Supabase
+        console.log("Visitor said:", message);
+    }
+});
+
+// ========== Display Message ==========
+function displayMessage(sender, text) {
+    const messageElement = document.createElement("div");
+    messageElement.classList.add("message");
+    messageElement.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    messagesContainer.appendChild(messageElement);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// ========== Priestess API Call ==========
+async function talkToPriestess(prompt) {
+    const response = await fetch("/api/priestess", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: prompt })
+    });
+
+    const data = await response.json();
+    return data.reply || "…I could not reach the sanctum.";
+}
