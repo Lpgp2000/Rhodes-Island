@@ -13,7 +13,7 @@ form.addEventListener('submit', async (e) => {
   if (!file) return alert('Please select a file');
 
   const { data, error } = await supabase.storage
-    .from('rhodes-cloud') // replace with your actual bucket
+    .from('rhodes-cloud') // your actual bucket
     .upload(`uploads/${file.name}`, file);
 
   if (error) {
@@ -26,7 +26,7 @@ form.addEventListener('submit', async (e) => {
 
 async function loadFiles() {
   const { data, error } = await supabase.storage
-    .from('your-bucket')
+    .from('rhodes-cloud') // updated to correct bucket name
     .list('uploads');
 
   if (error) {
@@ -35,8 +35,14 @@ async function loadFiles() {
   }
 
   fileList.innerHTML = data
-    .map(file => `<div><a href="${SUPABASE_URL}/storage/v1/object/public/your-bucket/uploads/${file.name}" target="_blank">${file.name}</a></div>`)
+    .map(file => `<div><a href="${SUPABASE_URL}/storage/v1/object/public/rhodes-cloud/uploads/${file.name}" target="_blank">${file.name}</a></div>`)
     .join('');
 }
 
 loadFiles();
+
+// 🌙 Soft welcoming message
+document.addEventListener('DOMContentLoaded', function () {
+  const message = "Your Rhodes Island is ready.";
+  alert(message);
+});
